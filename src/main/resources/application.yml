@@ -24,4 +24,6 @@ spring:
     activate:
       on-profile:
 
+server:
+  port: 8081
 

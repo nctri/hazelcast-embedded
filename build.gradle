@@ -20,10 +20,12 @@ repositories {
 
 dependencies {
     // https://mvnrepository.com/artifact/com.hazelcast/hazelcast
-// https://mvnrepository.com/artifact/com.hazelcast/hazelcast-spring
+    // https://mvnrepository.com/artifact/com.hazelcast/hazelcast-spring
     implementation group: 'com.hazelcast', name: 'hazelcast-spring', version: '4.2'
     // https://mvnrepository.com/artifact/com.hazelcast/hazelcast
     implementation group: 'com.hazelcast', name: 'hazelcast', version: '4.2'
+    // https://mvnrepository.com/artifact/com.hazelcast/hazelcast-sql
+    testImplementation group: 'com.hazelcast', name: 'hazelcast-sql', version: '4.2'
 
 //    implementation group: 'com.hazelcast', name: 'hazelcast-all', version: '4.2'
     implementation 'org.springframework.boot:spring-boot-starter-cache'

@@ -1,5 +1,6 @@
 package com.example.hazelcast.service;
 
+import com.example.hazelcast.constant.CacheName;
 import com.example.hazelcast.model.Employee;
 import com.example.hazelcast.repository.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,28 +19,41 @@ public class EmployeeService {
 
     private final EmployeeRepository employeeRepository;
 
-    @Cacheable(cacheNames = "allEmployeeCache")
+    @Cacheable(cacheNames = CacheName.ALL_EMPLOYEE_CACHE)
     public List<Employee> findAll() {
         log.info("Fetch all employees");
         return employeeRepository.findAll();
     }
 
-    @Cacheable(cacheNames = "employeeCache", key = "{#id}")
+    @Cacheable(cacheNames = CacheName.EMPLOYEE_CACHE, key = "{#id}")
     public Employee findOne(Long id) {
         log.info("Fetch one employee, employeeId = {}", id);
         return employeeRepository.findById(id).get();
     }
 
-    @CachePut(cacheNames = "employeeCache", key = "{#employee.id}")
-    public Employee save(Employee employee) {
-        log.info("Save one");
+    @Cacheable(cacheNames = CacheName.EMPLOYEE_CACHE, key = "{#employee.id}")
+    public Employee create(Employee employee) {
         return employeeRepository.save(employee);
     }
 
-    @CacheEvict(cacheNames = "employeeCache", key = "{#id}")
+    @CachePut(cacheNames = CacheName.EMPLOYEE_CACHE, key = "{#employee.id}")
+    public Employee update(Long id, Employee employee) {
+        Employee entity = employeeRepository.findById(employee.getId()).get();
+        entity.setEmail(employee.getEmail());
+        entity.setFirstName(employee.getFirstName());
+        entity.setLastName(employee.getLastName());
+        return employeeRepository.save(entity);
+    }
+
+    @CacheEvict(cacheNames = CacheName.EMPLOYEE_CACHE, key = "{#id}")
     public void delete(Long id) {
         log.info("Delete one");
         employeeRepository.deleteById(id);
+    }
+
+    @CacheEvict(cacheNames = CacheName.EMPLOYEE_CACHE, allEntries = true)
+    public void invalidateCache() {
+
     }
 
 

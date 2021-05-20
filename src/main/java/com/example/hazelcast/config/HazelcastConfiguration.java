@@ -24,7 +24,7 @@ public class HazelcastConfiguration {
         config.setInstanceName("hazelcast-cache");
         config.setManagementCenterConfig(managementCenterConfig());
 
-        config.getCPSubsystemConfig().setCPMemberCount(3);
+//        config.getCPSubsystemConfig().setCPMemberCount(3);
 
         NetworkConfig network = config.getNetworkConfig();
         network.setPort(5701).setPortCount(20);
@@ -37,20 +37,21 @@ public class HazelcastConfiguration {
 
         MapConfig allUsersCache = new MapConfig();
         allUsersCache.setName("allEmployeeCache");
-        allUsersCache.setTimeToLiveSeconds(20);
+//        allUsersCache.setTimeToLiveSeconds(20);
         allUsersCache.setEvictionConfig(new EvictionConfig()
                 .setEvictionPolicy(EvictionPolicy.LFU)
                 .setMaxSizePolicy(MaxSizePolicy.PER_NODE)
         );
         config.getMapConfigs().put("allEmployeeCache",allUsersCache);
-/*
+
         MapConfig userCache = new MapConfig();
-        userCache.setTimeToLiveSeconds(20);
+        userCache.setName("employeeCache");
+//        userCache.setTimeToLiveSeconds(20);
         userCache.setEvictionConfig(new EvictionConfig()
                 .setEvictionPolicy(EvictionPolicy.LFU)
                 .setMaxSizePolicy(MaxSizePolicy.PER_NODE)
         );
-        config.getMapConfigs().put("employeeCache", userCache);*/
+        config.getMapConfigs().put("employeeCache", userCache);
 
         config.getSerializationConfig().addSerializerConfig(serializerConfig());
 
