@@ -21,9 +21,9 @@ repositories {
 dependencies {
     // https://mvnrepository.com/artifact/com.hazelcast/hazelcast
 // https://mvnrepository.com/artifact/com.hazelcast/hazelcast-spring
-    implementation group: 'com.hazelcast', name: 'hazelcast-spring', version: '4.2'
+    implementation group: 'com.hazelcast', name: 'hazelcast-spring', version: '3.12.12'
     // https://mvnrepository.com/artifact/com.hazelcast/hazelcast
-    implementation group: 'com.hazelcast', name: 'hazelcast', version: '4.2'
+    implementation group: 'com.hazelcast', name: 'hazelcast', version: '3.12.12'
 
 //    implementation group: 'com.hazelcast', name: 'hazelcast-all', version: '4.2'
     implementation 'org.springframework.boot:spring-boot-starter-cache'

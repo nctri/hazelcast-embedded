@@ -3,31 +3,28 @@ spring:
     type: com.zaxxer.hikari.HikariDataSource
 #    type: org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseFactory.EmbeddedDataSourceProxy
 #    url: jdbc:h2:mem:db
-    url: jdbc:h2:file:C:/data/sample
+    url: jdbc:sqlserver://localhost:1433;databaseName=hazelcast
     username: sa
-    password:
+    password: sa
     hikari:
       data-source-properties:
         cachePrepStmts: true
         prepStmtCacheSize: 250
         prepStmtCacheSqlLimit: 2048
         useServerPrepStmts: true
-    platform: h2
-    initialization-mode: always
+#    initialization-mode: always
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
+    database-platform: org.hibernate.dialect.SQLServer2012Dialect
     show-sql: false
     hibernate:
-      ddl-auto: none
+      ddl-auto: validate
     properties:
       hibernate.id.new_generator_mappings: true
       hibernate.cache.use_second_level_cache: false
       hibernate.cache.use_query_cache: false
       hibernate.generate_statistics: false
-  h2:
-    console:
-      enabled: true
-      path: /h2_console
+    database: sql_server
   config:
     activate:
       on-profile:
+

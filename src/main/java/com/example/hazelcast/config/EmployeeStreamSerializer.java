@@ -11,18 +11,18 @@ public class EmployeeStreamSerializer implements StreamSerializer<Employee> {
 
     @Override
     public void write(ObjectDataOutput out, Employee employee) throws IOException {
-        out.writeString(employee.getFirstName());
-        out.writeString(employee.getLastName());
-        out.writeString(employee.getEmail());
+        out.writeUTF(employee.getFirstName());
+        out.writeUTF(employee.getLastName());
+        out.writeUTF(employee.getEmail());
         out.writeLong(employee.getId());
     }
 
     @Override
     public Employee read(ObjectDataInput in) throws IOException {
         return Employee.builder()
-                .firstName(in.readString())
-                .lastName(in.readString())
-                .email(in.readString())
+                .firstName(in.readUTF())
+                .lastName(in.readUTF())
+                .email(in.readUTF())
                 .id(in.readLong())
                 .build();
     }
@@ -30,5 +30,10 @@ public class EmployeeStreamSerializer implements StreamSerializer<Employee> {
     @Override
     public int getTypeId() {
         return 1;
+    }
+
+    @Override
+    public void destroy() {
+
     }
 }
