@@ -10,11 +10,20 @@ import com.hazelcast.config.MapConfig;
 import com.hazelcast.config.MaxSizePolicy;
 import com.hazelcast.config.NetworkConfig;
 import com.hazelcast.config.SerializerConfig;
+import com.hazelcast.core.Hazelcast;
+import com.hazelcast.core.HazelcastInstance;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class HazelcastConfiguration {
+
+    @Bean
+    @Qualifier("hazelcastInstance")
+    public HazelcastInstance hazelcastInstance(Config hazelCastConfig) {
+        return Hazelcast.newHazelcastInstance(hazelCastConfig);
+    }
 
     @Bean
     public Config hazelCastConfig() {

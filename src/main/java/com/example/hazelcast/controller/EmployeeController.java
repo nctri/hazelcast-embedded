@@ -53,9 +53,7 @@ public class EmployeeController {
 
     @PutMapping("/{id}")
     public Employee update(@RequestBody Employee employee, @PathVariable Long id) {
-        Employee updated = employeeService.update(id, employee);
-        hazelcastInstance.getMap(CacheNa).evictAll();
-        return updated;
+        return employeeService.update(id, employee);
     }
 
     @DeleteMapping("/{id}")

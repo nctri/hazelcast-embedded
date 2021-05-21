@@ -28,7 +28,7 @@ dependencies {
     testImplementation group: 'com.hazelcast', name: 'hazelcast-sql', version: '4.2'
 
 //    implementation group: 'com.hazelcast', name: 'hazelcast-all', version: '4.2'
-    implementation 'org.springframework.boot:spring-boot-starter-cache'
+//    implementation 'org.springframework.boot:spring-boot-starter-cache'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     compileOnly 'org.projectlombok:lombok'
