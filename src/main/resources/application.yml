@@ -1,7 +1,7 @@
 spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:oracle:thin:@//localhost:1521/XE
+    url: jdbc:oracle:thin:@//db:1621/XE
     username: hazelcast
     password: oracle
     hikari:
@@ -25,5 +25,5 @@ spring:
       on-profile:
 
 server:
-  port: 8081
+  port: 8080
 

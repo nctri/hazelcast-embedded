@@ -1,0 +1,31 @@
+version: '2.1'
+
+
+services:
+  db:
+    image: quay.io/maksymbilenko/oracle-12c
+    container_name: db
+    ports:
+     - "1621:1521"
+     - "8180:8080"
+    networks:
+      - my-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8180"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: web
+    ports:
+      - "8080:8080"
+    networks:
+      - my-network
+
+networks:
+  my-network:
+    driver: bridge
