@@ -1,4 +1,4 @@
-version: '2.1'
+version: '3'
 
 
 services:
@@ -6,26 +6,42 @@ services:
     image: quay.io/maksymbilenko/oracle-12c
     container_name: db
     ports:
-     - "1621:1521"
+     - "1521:1521"
      - "8180:8080"
-    networks:
-      - my-network
+    volumes:
+      - ./init:/docker-entrypoint-initdb.d
+#    healthcheck:
+#      test: [ "CMD", "bash", "-c", "echo 'select 1 from dual;' | ORACLE_HOME=/u01/app/oracle/product/12.2.0/SE
+#      /u01/app/oracle/product/12.2.0/SE/bin/sqlplus -S sys/oracle as sysdba"]
+#      interval: 10s
+#      timeout: 10s
+#      retries: 60
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8180"]
+      test: [ "CMD-SHELL", "if [ \"`echo \\\"SELECT ACCOUNT_STATUS FROM DBA_USERS WHERE USERNAME = 'HAZELCAST' AND
+      ACCOUNT_STATUS = 'OPEN';\\\"|/u01/app/oracle/product/12.2.0/SE/bin/sqlplus -S sys/oracle as sysdba|grep
+      ACCOUNT_STATUS`\" = \"ACCOUNT_STATUS\" ];then true;else false;fi" ]
       interval: 30s
       timeout: 10s
-      retries: 5
+      # start_period: 900s
+      retries: 60
+    networks:
+      - common-network
 
   web:
     build:
       context: .
       dockerfile: Dockerfile
     container_name: web
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:oracle:thin:@//db:1521/XE
     ports:
       - "8080:8080"
     networks:
-      - my-network
+      - common-network
 
 networks:
-  my-network:
+  common-network:
     driver: bridge
